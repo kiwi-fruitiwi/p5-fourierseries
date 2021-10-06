@@ -8,8 +8,8 @@ coding plan:
 .	circle with moving point and line
 	wave array + connector line: unshift, pop!
 		check wave.length in the console
-	add a second circle rotating on the first!
-	parameterize n
+.	add a second circle rotating on the first!
+.	parameterize n
 	    square wave
 	    sawtooth wave
 
@@ -37,12 +37,23 @@ function draw() {
     translate(width/4, height/2)
     stroke(0, 0, 100)
     noFill()
-    circle(0, 0, 200) // radius is 100
 
-    let r = 100
-    let a = time/100
-    line(0, 0, r*cos(a), r*sin(a))
-    circle(r*cos(a), r*sin(a), 30)
+    let a = -time/100
+    let x, y
+    let original_r = 100
+    let r = original_r
+
+    for (let n=1; n<90; n+=2) {
+        circle(0, 0, r*2) // radius is 100
+        x = r*cos(n*a)
+        y = r*sin(n*a)
+        r = 1.5*original_r/(n*PI)
+
+        line(0, 0, x, y)
+        circle(x, y, r*2)
+
+        translate(x, y)
+    }
 
     time++
 }
