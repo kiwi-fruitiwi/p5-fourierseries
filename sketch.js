@@ -38,22 +38,28 @@ function draw() {
     stroke(0, 0, 100)
     noFill()
 
-    let a = -time/100
-    let x, y
-    let original_r = 100
-    let r = original_r
+    let x = 0
+    let y = 0
+    let r = 75
+    let n = 0
 
-    for (let n=1; n<90; n+=2) {
-        circle(0, 0, r*2) // radius is 100
-        x = r*cos(n*a)
-        y = r*sin(n*a)
-        r = 1.5*original_r/(n*PI)
+    let prevX, prevY
 
-        line(0, 0, x, y)
-        circle(x, y, r*2)
+    for (let i=0; i<20; i++) {
+        n = 2*i+1
+        prevX = x
+        prevY = y
 
-        translate(x, y)
+        r = 75*(4/(n*PI))
+        x += r*cos(n*time)
+        y += r*sin(n*time)
+
+        stroke(0, 0, 100)
+        line(prevX, prevY, x, y)
+
+        stroke(0, 0, 100, 20)
+        circle(prevX, prevY, r*2)
     }
 
-    time++
+    time +=0.01
 }
