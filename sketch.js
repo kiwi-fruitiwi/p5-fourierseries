@@ -19,6 +19,7 @@ coding plan:
  */
 let font
 let time
+let wave = [] // stores points that we've drawn
 
 function preload() {
     font = loadFont('fonts/Meiryo-01.ttf')
@@ -45,7 +46,7 @@ function draw() {
 
     let prevX, prevY
 
-    for (let i=0; i<20; i++) {
+    for (let i=0; i<5; i++) {
         n = 2*i+1
         prevX = x
         prevY = y
@@ -61,5 +62,27 @@ function draw() {
         circle(prevX, prevY, r*2)
     }
 
-    time +=0.01
+    wave.unshift(y)
+    let offset = 240
+
+    // we want to have some space between our drawer and the wave
+    translate(offset, 0)
+    line(x-offset, y, 0, wave[0])
+    strokeWeight(8)
+    point(0, wave[0])
+
+    // display all the wave coordinates we've saved
+    stroke(0, 0, 70)
+    strokeWeight(1)
+    beginShape()
+    noFill()
+    for (let i=0; i<wave.length; i++)
+        vertex(i, wave[i])
+    endShape()
+
+    // remove extra coordinates once they are well off-screen
+    if (wave.length > 250)
+        wave.pop()
+
+    time +=0.05
 }
