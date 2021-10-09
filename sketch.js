@@ -30,7 +30,7 @@ function setup() {
     createCanvas(640, 360)
     colorMode(HSB, 360, 100, 100, 100)
 
-    slider = createSlider(1, 10)
+    // slider = createSlider(1, 10)
 }
 
 function getSawtoothValues(n) {
@@ -53,7 +53,7 @@ class fourierValues {
 function getSquareWaveValues(i) {
     let n = 2*i+1
     let r = 75*(4/(n*PI))
-    return new fourierValues(r*cos(n*time), r*sin(n*time), r)
+    return new fourierValues(r*cos(n*time), -r*sin(n*time), r)
 }
 
 
@@ -64,7 +64,7 @@ function getSawtoothWaveValues(i) {
         n *= -1
 
     let r = 75*(2/(n*PI))
-    return new fourierValues(r*cos(n*time), r*sin(n*time), r)
+    return new fourierValues(r*cos(n*time), -r*sin(n*time), r)
 }
 
 
@@ -80,7 +80,7 @@ function draw() {
 
     let prevPos
 
-    for (let i=0; i<slider.value(); i++) {
+    for (let i=0; i<20; i++) {
         prevPos = new p5.Vector(x, y)
         let fourierValues = getSawtoothWaveValues(i)
         x += fourierValues.x
